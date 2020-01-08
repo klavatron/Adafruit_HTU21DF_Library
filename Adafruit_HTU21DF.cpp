@@ -46,7 +46,8 @@ boolean Adafruit_HTU21DF::begin(void)
     Wire.write(HTU21DF_READREG);
     Wire.endTransmission();
     Wire.requestFrom(HTU21DF_I2CADDR, 1);
-    return (Wire.read() == 0x2); // after reset should be 0x2
+    uint8_t wireResponse = Wire.read();
+    return ((wireResponse == 0x2) || (wireResponse == 0x3A)); // after reset should be 0x2
 }
 
 /**
